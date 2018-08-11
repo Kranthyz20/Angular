@@ -4,8 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MatToolbarModule, MatListModule, MatLineModule, MatGridListModule, MatCardModule, MatButtonModule, 
-  MatIconModule, MatDialogModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
+  MatIconModule, MatDialogModule, MatFormFieldModule, MatCheckboxModule, MatInputModule,
+  MatSelectModule,MatSlideToggleModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import 'hammerjs';
 
@@ -54,7 +56,10 @@ import { LoginComponent } from './login/login.component';
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
-    AppRoutingModule
+    MatSelectModule,
+    MatSlideToggleModule,
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [DishService, PromotionService, LeaderService],
   entryComponents: [LoginComponent],
