@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MatToolbarModule, MatListModule, MatLineModule, MatGridListModule, MatCardModule, MatButtonModule, 
   MatIconModule, MatDialogModule, MatFormFieldModule, MatCheckboxModule, MatInputModule,
-  MatSelectModule,MatSlideToggleModule } from '@angular/material';
+  MatSelectModule,MatSlideToggleModule, MatProgressSpinnerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {ReactiveFormsModule} from '@angular/forms';
 
@@ -58,6 +58,7 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule,
     AppRoutingModule,
     ReactiveFormsModule
   ],
