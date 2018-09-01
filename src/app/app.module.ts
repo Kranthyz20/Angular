@@ -3,11 +3,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MatToolbarModule, MatListModule, MatLineModule, MatGridListModule, MatCardModule, MatButtonModule, 
+import { HttpClientModule } from '@angular/common/http';
+import {
+  MatToolbarModule, MatListModule, MatLineModule, MatGridListModule, MatCardModule, MatButtonModule,
   MatIconModule, MatDialogModule, MatFormFieldModule, MatCheckboxModule, MatInputModule,
-  MatSelectModule,MatSlideToggleModule, MatProgressSpinnerModule } from '@angular/material';
+  MatSelectModule, MatSlideToggleModule, MatProgressSpinnerModule, MatSliderModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 
 import 'hammerjs';
 
@@ -23,9 +28,12 @@ import { ContactComponent } from './contact/contact.component';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service'
 import { LeaderService } from './services/leader.service'
+import { ProcessHTTPmsgService } from './services/process-httpmsg.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { baseURL } from './shared/baseurl';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -37,13 +45,15 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     MatToolbarModule,
     FlexLayoutModule,
     MatListModule,
@@ -59,10 +69,14 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatSliderModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
-  providers: [DishService, PromotionService, LeaderService],
+  providers: [DishService, PromotionService, LeaderService,
+    { provide: 'BaseURL', useValue: baseURL },
+    ProcessHTTPmsgService],
   entryComponents: [LoginComponent],
   bootstrap: [AppComponent]
 })

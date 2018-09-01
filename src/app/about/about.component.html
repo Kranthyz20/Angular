@@ -56,9 +56,9 @@
 
   <div fxFlex>
     <h2>Corporate Leadership</h2>
-    <mat-list *ngIf="leaders">
+    <mat-list *ngIf="leaders" [@expand]>
       <mat-list-item *ngFor="let lead of leaders">
-        <img mat-list-avatar src="{{lead.image}}" alt="{{lead.name}}">
+        <img mat-list-avatar src="{{BaseURL + lead.image}}" alt="{{lead.name}}">
         <h4 mat-line>{{lead.name}} {{lead.abbr}}</h4>
         <p mat-line>{{lead.designation}}</p>
         <p mat-line>{{lead.description}}</p>
@@ -66,9 +66,14 @@
     </mat-list>
   </div>
 
-  <div [hidden]="leaders">
+  <div [hidden]="leaders || errMess">
     <mat-spinner></mat-spinner>
     <h3>Loading...Please Wait...</h3>
   </div>
+
+  <div *ngIf="errMess">
+      <h2>Error</h2>
+      <h4>{{errMess.message}}</h4>
+    </div>
 
 </div>

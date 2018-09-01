@@ -1,32 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Promotion } from '../shared/promotion';
-import { PROMOTIONS } from '../shared/promotions';
+import { Http, Response } from '@angular/http';
+
+import { of, Observable } from 'rxjs';
+import { delay, catchError, map } from 'rxjs/operators';
+
+import { baseURL } from '../shared/baseurl';
+
+import { RestangularModule, Restangular } from 'ngx-restangular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionService {
 
-  constructor() { }
+  constructor(private restangular: Restangular) { }
 
-  getPromotions(): Promise<Promotion[]> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 sec delay
-      setTimeout(() => resolve(PROMOTIONS),2000)
-    });
+  getPromotions(): Observable<Promotion[]> {
+    return this.restangular.all('promotions').getList();
   }
 
-  getPromotion(id: number): Promise<Promotion> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 sec delay
-      setTimeout(() => resolve(PROMOTIONS.filter((promo) => (promo.id === id))[0]),2000)
-    });
+  getPromotion(id: number): Observable<Promotion> {
+    return this.restangular.one('promotions', id).get();
   }
 
-  getFeaturedPromotion(): Promise<Promotion> {
-    return new Promise(resolve => {
-      // Simulate server latency with 2 sec delay
-      setTimeout(() => resolve(PROMOTIONS.filter((promo) => (promo.featured))[0]),2000)
-    });
+  getFeaturedPromotion(): Observable<Promotion> {
+    return this.restangular.all('promotions').getList({ featured: true }).pipe(
+      map(promo => promo[0]));
   }
 }
